@@ -1,6 +1,6 @@
 // src/components/Navbar.js
-import React from 'react';
-import { Navbar, Nav } from 'bootstrap-react';
+import React, { Component } from 'react'; 
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 const Navigation = () => {
   return (
