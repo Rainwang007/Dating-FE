@@ -1,32 +1,49 @@
-// src/routes/Matches.jsx
 import React, { useState, useEffect } from 'react';
 import MatchCard from '../components/MatchCard';
+import { getMatches, likeUser, dislikeUser } from '../api';  // Import from the centralized API file
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
+  const [error, setError] = useState(null);
 
-  // 假设从API获取匹配数据
   useEffect(() => {
-    const fetchData = async () => {
-      // 这里通常会有API调用来获取匹配数据
-      const mockData = [
-        { id: 1, name: 'Alice', age: 25, location: 'New York', avatar: 'alice.jpg' },
-        { id: 2, name: 'Bob', age: 30, location: 'San Francisco', avatar: 'bob.jpg' },
-        // ...更多匹配数据
-      ];
-      setMatches(mockData);
+    const fetchMatches = async () => {
+      try {
+        const fetchedMatches = await getMatches();
+        setMatches(fetchedMatches);
+      } catch (err) {
+        setError(err.message);
+      }
     };
-    fetchData();
+
+    fetchMatches();
   }, []);
 
+  const handleLike = async (userId) => {
+    try {
+      const message = await likeUser(userId);
+      console.log(message);  // Output success message
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleDislike = async (userId) => {
+    try {
+      const message = await dislikeUser(userId);
+      console.log(message);  // Output success message
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
-    <div className="matches-page">
-      <h1>Your Matches</h1>
-      <div className="match-list">
-        {matches.map((match) => (
-          <MatchCard key={match.id} match={match} />
-        ))}
-      </div>
+    <div className="matches-container">
+      <h1>Matches</h1>
+      {error && <p className="error">{error}</p>}
+      {matches.map((match) => (
+        <MatchCard key={match.id} match={match} onLike={handleLike} onDislike={handleDislike} />
+      ))}
     </div>
   );
 };

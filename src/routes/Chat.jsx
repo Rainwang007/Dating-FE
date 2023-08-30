@@ -1,41 +1,47 @@
-// src/routes/Chat.jsx
 import React, { useState, useEffect } from 'react';
-import ChatBox from '../components/ChatBox';
+import { getChatMessages, sendMessage } from '../api';  // Import from the centralized API file
 
-const Chat = () => {
+const Chat = ({ chatId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [error, setError] = useState(null);
 
-  // 模拟从API获取聊天记录
   useEffect(() => {
-    const fetchData = async () => {
-      const mockData = [
-        { id: 1, sender: 'Alice', content: 'Hi there!' },
-        { id: 2, sender: 'Bob', content: 'Hello!' },
-        // ...更多聊天记录
-      ];
-      setMessages(mockData);
+    const fetchMessages = async () => {
+      try {
+        const fetchedMessages = await getChatMessages(chatId);
+        setMessages(fetchedMessages);
+      } catch (err) {
+        setError(err.message);
+      }
     };
-    fetchData();
-  }, []);
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === '') return;
-    // 这里通常会有API调用来发送新消息
-    const newMsg = { id: messages.length + 1, sender: 'You', content: newMessage };
-    setMessages([...messages, newMsg]);
-    setNewMessage('');
+    fetchMessages();
+  }, [chatId]);
+
+  const handleSendMessage = async () => {
+    try {
+      await sendMessage(chatId, newMessage);
+      setMessages([...messages, { content: newMessage, user: 'You' }]);
+      setNewMessage('');
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
-    <div className="chat-page">
-      <h1>Chat with Alice</h1>
-      <div className="chat-box">
-        {messages.map((message) => (
-          <ChatBox key={message.id} message={message} />
+    <div className="chat-container">
+      <h1>Chat</h1>
+      {error && <p className="error">{error}</p>}
+      <div className="messages">
+        {messages.map((message, index) => (
+          <div key={index}>
+            <strong>{message.user}:</strong> {message.content}
+          </div>
         ))}
       </div>
-      <div className="chat-input">
+      <div className="send-message">
         <input
           type="text"
           value={newMessage}
