@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MatchCard from '../components/MatchCard';
-import { getMatches, likeUser, dislikeUser } from '../api';  // Import from the centralized API file
+import { likeUser, dislikeUser, getRandomMatch } from '../api';  // 删除getMatches
 
 const Matches = () => {
-  const [matches, setMatches] = useState([]);
+  const [randomMatch, setRandomMatch] = useState(null);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        const fetchedMatches = await getMatches();
-        setMatches(fetchedMatches);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    fetchMatches();
-  }, []);
 
   const handleLike = async (userId) => {
     try {
       const message = await likeUser(userId);
-      console.log(message);  // Output success message
+      console.log(message);
     } catch (err) {
       setError(err.message);
     }
@@ -31,7 +18,16 @@ const Matches = () => {
   const handleDislike = async (userId) => {
     try {
       const message = await dislikeUser(userId);
-      console.log(message);  // Output success message
+      console.log(message);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleGetRandomMatch = async () => {
+    try {
+      const match = await getRandomMatch();
+      setRandomMatch(match);
     } catch (err) {
       setError(err.message);
     }
@@ -40,10 +36,9 @@ const Matches = () => {
   return (
     <div className="matches-container">
       <h1>Matches</h1>
+      <button onClick={handleGetRandomMatch}>Get Random Match</button>
+      {randomMatch && <MatchCard match={randomMatch} onLike={handleLike} onDislike={handleDislike} />}
       {error && <p className="error">{error}</p>}
-      {matches.map((match) => (
-        <MatchCard key={match.id} match={match} onLike={handleLike} onDislike={handleDislike} />
-      ))}
     </div>
   );
 };

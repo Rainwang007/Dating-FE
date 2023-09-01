@@ -35,9 +35,10 @@ export const updateProfile = async (profile) => {
 };
 
 // Match API
-export const getMatches = async () => {
-  const response = await axios.get(`${API_URL}/api/matches`, { headers: getAuthHeader() });
-  return response.data.matches;
+
+export const getRandomMatch = async () => {
+  const response = await axios.get(`${API_URL}/api/matches/random`, { headers: getAuthHeader() });
+  return response.data.match;
 };
 
 export const likeUser = async (userId) => {
