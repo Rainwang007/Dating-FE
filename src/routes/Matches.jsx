@@ -27,6 +27,7 @@ const Matches = () => {
   const handleGetRandomMatch = async () => {
     try {
       const match = await getRandomMatch();
+      console.log("Received match:", match);  // 打印获取的 match 对象
       setRandomMatch(match);
     } catch (err) {
       setError(err.message);
