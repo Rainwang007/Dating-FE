@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';  // Import from the centralized API file
 
+
+
 const Register = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,7 +19,7 @@ const Register = () => {
     }
 
     try {
-      await registerUser(email, password);  // Use the imported registerUser function
+      await registerUser(username, email, password);  // Use the imported registerUser function
       // Navigate to login page or other
       // e.g., history.push('/login');
       setError(null); // Clear any existing errors
@@ -36,6 +39,15 @@ const Register = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <div className="form-group">

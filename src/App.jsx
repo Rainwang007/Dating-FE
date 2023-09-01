@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './routes/Home';
@@ -14,14 +14,14 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/matches" component={Matches} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/profile" component={Profile} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/matches" element={<Matches />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
       <Footer />
     </div>
   );
