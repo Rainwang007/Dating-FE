@@ -7,8 +7,8 @@ const MatchCard = ({ match, onLike, onDislike }) => {
       <h3>{match.name}</h3>
       <p><strong>Age:</strong> {match.age}</p>
       <p><strong>Location:</strong> {match.location}</p>
-      <button onClick={() => onLike(match.id)}>Like</button>
-      <button onClick={() => onDislike(match.id)}>Dislike</button>
+      <button onClick={() => onLike(match.user_id)}>Like</button>
+      <button onClick={() => onDislike(match.user_id)}>Dislike</button>
     </div>
   );
 };

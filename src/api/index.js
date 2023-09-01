@@ -46,6 +46,7 @@ export const likeUser = async (userId) => {
   return response.data.message;
 };
 
+
 export const dislikeUser = async (userId) => {
   const response = await axios.post(`${API_URL}/api/matches/${userId}/dislike`, {}, { headers: getAuthHeader() });
   return response.data.message;
