@@ -46,7 +46,7 @@ const Profile = () => {
       await updateProfile(profile);
       setIsEditable(false);
     } catch (err) {
-      console.error(err);
+      console.error("Update profile failed:", err.response.data);
     }
   };
 
@@ -62,7 +62,6 @@ const Profile = () => {
       <InputField label="Age" id="age" value={profile.age} onChange={handleInputChange} isEditable={isEditable} />
       <InputField label="Location" id="location" value={profile.location} onChange={handleInputChange} isEditable={isEditable} />
       <InputField label="Bio" id="bio" value={profile.bio} onChange={handleInputChange} isEditable={isEditable} />
-      {/* ...其他字段 */}
       {isEditable && <button onClick={handleUpdateProfile}>Update Profile</button>}
     </div>
   );

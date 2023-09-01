@@ -2,88 +2,60 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
+const getAuthHeader = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Authorization': `Bearer ${token}`
+  };
+};
+
 // Auth API
 export const registerUser = async (username, email, password) => {
-  try {
-    await axios.post(`${API_URL}/api/register`, { username, email, password });
-  } catch (err) {
-    throw new Error('Registration failed, please try again.');
-  }
+ 
+  await axios.post(`${API_URL}/api/register`, { username, email, password });
 };
 
 export const loginUser = async (email, password) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/login`, { email, password });
-    return response.data.token;
-  } catch (err) {
-    throw new Error('Login failed, please check your credentials.');
-  }
+  const response = await axios.post(`${API_URL}/api/login`, { email, password });
+  return response.data.token;
 };
 
 export const logoutUser = async () => {
-  return await axios.get(`${API_URL}/api/logout`);
+  await axios.get(`${API_URL}/api/logout`, { headers: getAuthHeader() });
 };
 
 // Profile API
 export const fetchProfile = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/api/profile`);
-    return response.data.profile;
-  } catch (err) {
-    throw new Error('Failed to fetch profile.');
-  }
+  const response = await axios.get(`${API_URL}/api/profile`, { headers: getAuthHeader() });
+  return response.data.profile;
 };
 
 export const updateProfile = async (profile) => {
-  try {
-    await axios.put(`${API_URL}/api/profile`, profile);
-  } catch (err) {
-    throw new Error('Failed to update profile.');
-  }
+  await axios.put(`${API_URL}/api/profile`, profile, { headers: getAuthHeader() });
 };
 
 // Match API
 export const getMatches = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/api/matches`);
-    return response.data.matches;
-  } catch (err) {
-    throw new Error('Failed to fetch matches.');
-  }
+  const response = await axios.get(`${API_URL}/api/matches`, { headers: getAuthHeader() });
+  return response.data.matches;
 };
 
 export const likeUser = async (userId) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/matches/${userId}/like`);
-    return response.data.message;
-  } catch (err) {
-    throw new Error('Failed to like user.');
-  }
+  const response = await axios.post(`${API_URL}/api/matches/${userId}/like`, {}, { headers: getAuthHeader() });
+  return response.data.message;
 };
 
 export const dislikeUser = async (userId) => {
-  try {
-    const response = await axios.post(`${API_URL}/api/matches/${userId}/dislike`);
-    return response.data.message;
-  } catch (err) {
-    throw new Error('Failed to dislike user.');
-  }
+  const response = await axios.post(`${API_URL}/api/matches/${userId}/dislike`, {}, { headers: getAuthHeader() });
+  return response.data.message;
 };
 
 // Chat API
 export const getChatMessages = async (targetUserId) => {
-  try {
-    const response = await axios.get(`${API_URL}/api/chat`, { params: { target_user_id: targetUserId } });
-    return response.data.chat_history;
-  } catch (err) {
-    throw new Error('Failed to fetch chat messages.');
-  }
+  const response = await axios.get(`${API_URL}/api/chat`, { params: { target_user_id: targetUserId }, headers: getAuthHeader() });
+  return response.data.chat_history;
 };
 
 export const sendMessage = async (targetUserId, message) => {
-  try {
-    await axios.post(`${API_URL}/api/chat`, { target_user_id: targetUserId, message });
-  } catch (err) {
-    throw new Error('Failed to send message.');
-  }
+  await axios.post(`${API_URL}/api/chat`, { target_user_id: targetUserId, message }, { headers: getAuthHeader() });
 };
