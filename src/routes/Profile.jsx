@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchProfile, updateProfile } from '../api';
-import './Profile.css';  // 引入自定义CSS
+import './Profile.css';  
 
 const InputField = ({ label, id, value, onChange, isEditable }) => (
   <div className="form-group">
@@ -54,6 +54,7 @@ const Profile = () => {
   const toggleEdit = () => {
     setIsEditable(!isEditable);
   };
+  
   return (
     <div className="profile-container">
       <h1>Profile</h1>
@@ -62,9 +63,12 @@ const Profile = () => {
       <InputField label="Age" id="age" value={profile.age} onChange={handleInputChange} isEditable={isEditable} />
       <InputField label="Location" id="location" value={profile.location} onChange={handleInputChange} isEditable={isEditable} />
       <InputField label="Bio" id="bio" value={profile.bio} onChange={handleInputChange} isEditable={isEditable} />
+      <InputField label="Avatar URL" id="avatarUrl" value={profile.avatarUrl} onChange={handleInputChange} isEditable={isEditable} />  {/* 添加这一行 */}
+      {profile.avatarUrl && <img src={profile.avatarUrl} alt="Avatar" style={{ width: '100px', height: '100px' }} />}  {/* 添加这一行 */}
       {isEditable && <button onClick={handleUpdateProfile}>Update Profile</button>}
     </div>
   );
+
 };
 
 export default Profile;

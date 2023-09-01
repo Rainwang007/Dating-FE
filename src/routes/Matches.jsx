@@ -12,8 +12,12 @@ const Matches = () => {
     try {
       const message = await likeUser(userId);
       console.log(message);
+      alert('You liked the user!');
+      handleGetRandomMatch(); 
     } catch (err) {
       setError(err.message);
+      alert('An error occurred while liking the user.'); 
+      handleGetRandomMatch(); 
     }
   };
   
@@ -21,8 +25,12 @@ const Matches = () => {
     try {
       const message = await dislikeUser(userId);
       console.log(message);
+      alert('You disliked the user!'); 
+      handleGetRandomMatch(); 
     } catch (err) {
       setError(err.message);
+      alert('An error occurred while disliking the user.'); 
+      handleGetRandomMatch(); 
     }
   };
 

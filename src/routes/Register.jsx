@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { registerUser } from '../api';  // Import from the centralized API file
+import { useNavigate } from 'react-router-dom';
+import { registerUser,loginUser } from '../api';  // Import from the centralized API file
 import './Register.css';  // 引入自定义CSS
 
 const Register = () => {
@@ -8,6 +9,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
 
   const handleRegister = async (e) => {
@@ -15,16 +17,27 @@ const Register = () => {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
+      alert('Passwords do not match.');
       return;
     }
 
     try {
-      await registerUser(username, email, password);  // Use the imported registerUser function
-      // Navigate to login page or other
-      // e.g., history.push('/login');
+      await registerUser(username, email, password); 
       setError(null); // Clear any existing errors
+      alert('Registration successful!'); 
+          // 自动登录
+    try {
+      const token = await loginUser(email, password);  // 使用登录API函数
+      localStorage.setItem('token', token);  // 将令牌存储在localStorage中
+    } catch (loginErr) {
+      alert('Auto login failed: ' + loginErr.message);  // 如果自动登录失败，显示错误
+      return;
+    }
+
+      navigate('/profile');  
     } catch (err) {
       setError(err.message);
+      alert('Registration failed: ' + err.message);
     }
   };
   
