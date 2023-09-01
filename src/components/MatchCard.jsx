@@ -1,4 +1,5 @@
 import React from 'react';
+import './MatchCard.css';  // 引入自定义CSS
 
 const MatchCard = ({ match, onLike, onDislike }) => {
   return (
@@ -9,7 +10,6 @@ const MatchCard = ({ match, onLike, onDislike }) => {
       <p><strong>Location:</strong> {match.location}</p>
       <button onClick={() => onLike(match.user_id)}>Like</button>
       <button onClick={() => onDislike(match.user_id)}>Dislike</button>
-
     </div>
   );
 };

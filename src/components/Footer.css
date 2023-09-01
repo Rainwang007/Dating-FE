@@ -1,0 +1,12 @@
+/* Footer.css */
+.romantic-footer {
+    background-color: #ff85a2;  /* 粉色背景 */
+    color: white;  /* 白色文字 */
+    text-align: center;
+    padding: 1rem;
+    position: fixed;  /* 固定位置 */
+    bottom: 0;  /* 底部对齐 */
+    width: 100%;  /* 宽度100% */
+    z-index: 1000;  /* 置于其他元素之上 */
+  }
+  

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getEmailMatches } from '../api';  
+import './GetEmail.css';  // 引入自定义CSS
 
 const GetEmail = () => {
   const [emailMatches, setEmailMatches] = useState({});

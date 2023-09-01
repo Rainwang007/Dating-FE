@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser,logoutUser } from '../api';  // Import from the centralized API file
+import { loginUser, logoutUser } from '../api';  // Import from the centralized API file
+import './Login.css';  // 引入自定义CSS
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -41,6 +42,7 @@ const Login = () => {
   };
 
 
+ 
   return (
     <div className="login-container">
       <h1>Login</h1>

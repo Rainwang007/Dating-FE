@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './EmailReveal.css';  // 引入自定义CSS
 
 const EmailReveal = ({ emailMatches }) => {
   return (
@@ -16,6 +16,5 @@ const EmailReveal = ({ emailMatches }) => {
     </div>
   );
 };
-
 
 export default EmailReveal;

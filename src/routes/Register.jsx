@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';  // Import from the centralized API file
-
-
+import './Register.css';  // 引入自定义CSS
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -9,6 +8,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+
 
   const handleRegister = async (e) => {
     e.preventDefault();

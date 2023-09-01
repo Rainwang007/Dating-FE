@@ -1,0 +1,27 @@
+/* Matches.css */
+.matches-container {
+    background-color: #fff3f8;  /* 浅粉色背景 */
+    border-radius: 15px;  /* 圆角 */
+    padding: 1rem;  /* 内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 阴影 */
+  }
+  
+  .matches-container h1 {
+    color: #ff85a2;  /* 粉色标题 */
+    text-align: center;  /* 文字居中 */
+  }
+  
+  button {
+    background-color: #ff85a2;  /* 粉色背景 */
+    color: white;  /* 白色文字 */
+    border: none;  /* 无边框 */
+    padding: 0.5rem 1rem;  /* 内边距 */
+    border-radius: 10px;  /* 圆角 */
+    cursor: pointer;  /* 手型光标 */
+    margin: 0.5rem;  /* 外边距 */
+  }
+  
+  .error {
+    color: red;  /* 错误信息红色 */
+  }
+  

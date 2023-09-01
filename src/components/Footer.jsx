@@ -1,9 +1,9 @@
-// src/components/Footer.jsx
 import React from 'react';
+import './Footer.css';  
 
 const Footer = () => {
   return (
-    <footer className="App-footer">
+    <footer className="romantic-footer">
       <p>&copy; 2023 Dating App. All rights reserved.</p>
     </footer>
   );

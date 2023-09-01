@@ -1,0 +1,23 @@
+/* UserProfile.css */
+.user-profile {
+    background-color: #fff3f8;  /* 浅粉色背景 */
+    border-radius: 15px;  /* 圆角 */
+    padding: 1rem;  /* 内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 阴影 */
+  }
+  
+  .user-profile h2 {
+    color: #ff85a2;  /* 粉色标题 */
+    text-align: center;  /* 文字居中 */
+  }
+  
+  .profile-details img {
+    max-width: 100px;  /* 图片最大宽度 */
+    border-radius: 50%;  /* 圆形图片 */
+    margin-bottom: 1rem;  /* 底部外边距 */
+  }
+  
+  .profile-details p {
+    margin: 0.5rem 0;  /* 上下外边距 */
+  }
+  

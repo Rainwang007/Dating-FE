@@ -1,0 +1,28 @@
+/* MatchCard.css */
+.match-card {
+    background-color: #fff3f8;  /* 浅粉色背景 */
+    border-radius: 15px;  /* 圆角 */
+    padding: 1rem;  /* 内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 阴影 */
+    text-align: center;  /* 文字居中 */
+  }
+  
+  .match-card img {
+    max-width: 100%;  /* 图片最大宽度 */
+    border-radius: 10px;  /* 圆角 */
+  }
+  
+  .match-card h3 {
+    color: #ff85a2;  /* 粉色标题 */
+  }
+  
+  .match-card button {
+    background-color: #ff85a2;  /* 粉色背景 */
+    color: white;  /* 白色文字 */
+    border: none;  /* 无边框 */
+    padding: 0.5rem 1rem;  /* 内边距 */
+    margin: 0.5rem;  /* 外边距 */
+    border-radius: 10px;  /* 圆角 */
+    cursor: pointer;  /* 手型光标 */
+  }
+  

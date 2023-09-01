@@ -9,6 +9,8 @@ import Register from './routes/Register';
 import Matches from './routes/Matches';
 import Chat from './routes/GetEmail';
 import Profile from './routes/Profile';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import MatchCard from '../components/MatchCard';
 import { likeUser, dislikeUser, getRandomMatch } from '../api';  // 删除getMatches
+import './Matches.css';  // 引入自定义CSS
 
 const Matches = () => {
   const [randomMatch, setRandomMatch] = useState(null);
   const [error, setError] = useState(null);
+
 
   const handleLike = async (userId) => {
     try {
@@ -33,6 +35,7 @@ const Matches = () => {
       setError(err.message);
     }
   };
+
 
   return (
     <div className="matches-container">
