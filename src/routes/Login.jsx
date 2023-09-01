@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { loginUser } from '../api';  // Import from the centralized API file
+import { useNavigate } from 'react-router-dom';
+import { loginUser,logoutUser } from '../api';  // Import from the centralized API file
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,15 +16,30 @@ const Login = () => {
 
       // Store JWT token into localStorage or other client storage
       localStorage.setItem('token', token);
+      window.alert("Login successful!");
 
       // Navigate to home page or other
-      // e.g., history.push('/home');
+      navigate('/profile');
 
       setError(null); // Clear any existing errors
     } catch (err) {
       setError(err.message);
     }
   };
+  
+  const handleLogout = () => {
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
+    if (isConfirmed) {
+      logoutUser().then(() => {
+        localStorage.removeItem('token');
+       
+        window.location.reload();
+      }).catch(err => {
+        console.error("Logout failed:", err);
+      });
+    }
+  };
+
 
   return (
     <div className="login-container">
@@ -49,6 +66,7 @@ const Login = () => {
         {error && <p className="error">{error}</p>}
         <button type="submit">Login</button>
       </form>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

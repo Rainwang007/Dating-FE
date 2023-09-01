@@ -1,20 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { fetchProfile, updateProfile } from '../api';  // Import from the centralized API file
+import { fetchProfile, updateProfile } from '../api';
+
+const InputField = ({ label, id, value, onChange, isEditable }) => (
+  <div className="form-group">
+    <label htmlFor={id}>{label}</label>
+    <input
+      type="text"
+      id={id}
+      value={value}
+      onChange={(e) => onChange(id, e.target.value)}
+      readOnly={!isEditable}
+    />
+  </div>
+);
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const handleInputChange = (field, value) => {
+    setProfile({ ...profile, [field]: value });
+  };
+
+  const [profile, setProfile] = useState({
+    name: '',
+    age: '',
+    location: '',
+    bio: '',
+    avatar: ''
+  });
+  const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchProfile();  // Use the imported fetchProfile function
-        setProfile(data);
-        setLoading(false);
+        const data = await fetchProfile();
+        setProfile({ ...profile, ...data });
       } catch (err) {
-        setError(err.message);
-        setLoading(false);
+        console.error(err);
       }
     };
 
@@ -23,42 +43,30 @@ const Profile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      await updateProfile(profile);  // Use the imported updateProfile function
-      setError(null); // Clear any existing errors
+      await updateProfile(profile);
+      setIsEditable(false);
     } catch (err) {
-      setError(err.message);
+      console.error(err);
     }
+  };
+
+  const toggleEdit = () => {
+    setIsEditable(!isEditable);
   };
 
   return (
     <div className="profile-container">
       <h1>Profile</h1>
-      {error && <p className="error">{error}</p>}
-      {profile && (
-        <div>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              value={profile.name}
-              onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={profile.email}
-              readOnly
-            />
-          </div>
-          <button onClick={handleUpdateProfile}>Update Profile</button>
-        </div>
-      )}
+      <button onClick={toggleEdit}>{isEditable ? 'Cancel' : 'Edit Profile'}</button>
+      <InputField label="Name" id="name" value={profile.name} onChange={handleInputChange} isEditable={isEditable} />
+      <InputField label="Age" id="age" value={profile.age} onChange={handleInputChange} isEditable={isEditable} />
+      <InputField label="Location" id="location" value={profile.location} onChange={handleInputChange} isEditable={isEditable} />
+      <InputField label="Bio" id="bio" value={profile.bio} onChange={handleInputChange} isEditable={isEditable} />
+      {/* ...其他字段 */}
+      {isEditable && <button onClick={handleUpdateProfile}>Update Profile</button>}
     </div>
   );
+
 };
 
 export default Profile;
