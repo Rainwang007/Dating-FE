@@ -7,7 +7,7 @@ import Home from './routes/Home';
 import Login from './routes/Login';
 import Register from './routes/Register';
 import Matches from './routes/Matches';
-import Chat from './routes/Chat';
+import Chat from './routes/GetEmail';
 import Profile from './routes/Profile';
 
 function App() {

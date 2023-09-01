@@ -53,11 +53,9 @@ export const dislikeUser = async (userId) => {
 };
 
 // Chat API
-export const getChatMessages = async (targetUserId) => {
-  const response = await axios.get(`${API_URL}/api/chat`, { params: { target_user_id: targetUserId }, headers: getAuthHeader() });
-  return response.data.chat_history;
+
+export const getEmailMatches = async () => {
+  const response = await axios.get(`${API_URL}/api/get_email`, { headers: getAuthHeader() });
+  return response.data.matched_users;
 };
 
-export const sendMessage = async (targetUserId, message) => {
-  await axios.post(`${API_URL}/api/chat`, { target_user_id: targetUserId, message }, { headers: getAuthHeader() });
-};
