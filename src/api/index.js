@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://dating-be-rain-031bf3f92be1.herokuapp.com/';
 
 const getAuthHeader = () => {
   const token = localStorage.getItem('token');
